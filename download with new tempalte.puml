@@ -1,0 +1,37 @@
+@startuml
+actor       FE       as FE
+actor       FE2      as FE2
+queue       BE       as BE
+database    DB    as DB
+
+skin rose
+
+FE -> BE: API Generate docx
+BE -> DB: Create status "Ongoing"
+BE -> BE: Generating...
+FE2 -> BE: API Upload Template
+BE -> BE: Save new template file
+BE -> FE2: Save new tempalate success
+BE -> DB: Write new template file location
+FE -> BE: API Generate new tempalate docx
+BE -> DB: Create status 2 "Ongoing"
+BE -> BE: Generating 2...
+BE -> BE: Generating Done
+BE -> DB: Update status "Done"
+FE -> BE: API Check status
+BE -> DB: Read Status
+DB -> BE: Status "Done"
+DB -> BE: Status 2 "Ongoing"
+BE -> FE: Status 1 "Done"
+BE -> FE: Status 2 "Ongoing"
+BE -> BE: Generating 2 Done
+BE -> DB: Update status 2 "Done"
+FE -> BE: API Check status
+BE -> DB: Read Status
+DB -> BE: Status 2 "Done"
+BE -> FE: Status 2 "Done"
+
+' pengecekan
+' 1. Status
+
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+actor       FE       as FE
+queue       BE       as BE
+database    DB    as DB
+
+skin rose
+
+FE -> BE: API Generate docx
+BE -> DB: Create status "Ongoing"
+BE -> BE: Generating...
+FE -> BE: API Check status
+BE -> DB: Read Status
+DB -> BE: Status "Ongoing"
+BE -> FE: Status "Ongoing"
+BE -> BE: Generating Done
+BE -> DB: Update status "Done"
+FE -> BE: API Check status
+BE -> DB: Read Status
+DB -> BE: Status "Done"
+BE -> FE: Status "Done"
+
+' pengecekan
+' 1. Status
+
+@enduml
